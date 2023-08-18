@@ -110,12 +110,6 @@ app.get("/", function (req, res) {
 
 });
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log('Listening on port');
-  })
-})
-
 app.post("/", function (req, res) {
 
   const itemName = req.body.newItem;
@@ -240,3 +234,9 @@ app.get("/:topic", (req, res) => {
 app.get("/about", function (req, res) {
   res.render("about");
 });
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log('Listening on port');
+  })
+})
