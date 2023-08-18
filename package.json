@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "app.js",
   "type": "module",
-  "scripts": {
-    "start": "node index.js"
-  },
   "author": "",
   "license": "ISC",
   "engines": {
