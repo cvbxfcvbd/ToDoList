@@ -63,16 +63,9 @@ const List = mongoose.model('List', listSchema)
 //to learn more about promise visit : https://javascript.info/promise-basics
 //Or https://www.youtube.com/watch?v=novBIqZh4Bk
 
-Item.find().count()
-  .then(result => {
-    z = result;
-    console.log("Number of documents: ", z);
-    if (z === 0) {
-      return Item.insertMany(defaultItems); // Return the promise chain
-    } else {
-      return Promise.resolve(); // No need to insert items, resolve the promise
-    }
-  })
+
+      return Item.insertMany(defaultItems) // Return the promise chain
+
   .then(insertResult => {
     if (insertResult) {
       console.log("Default items inserted:", insertResult);
