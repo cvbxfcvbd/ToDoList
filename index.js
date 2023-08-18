@@ -1,5 +1,4 @@
 //jshint esversion:6
-require('dotenv').config();
 import _ from 'lodash';
 import express from "express";
 import bodyParser from "body-parser";
@@ -9,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI)
+    const conn = await mongoose.connect('mongodb+srv://vicstyl3:Figarooo.333@cluster0.cspu3nz.mongodb.net/todolistDB')
     console.log('mongodb connected');
   } catch (error) {
     console.log(error);
