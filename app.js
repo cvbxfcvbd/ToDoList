@@ -63,8 +63,7 @@ const List = mongoose.model('List', listSchema)
 //to learn more about promise visit : https://javascript.info/promise-basics
 //Or https://www.youtube.com/watch?v=novBIqZh4Bk
 
-
-      return Item.insertMany(defaultItems) // Return the promise chain
+Item.insertMany(defaultItems) // Return the promise chain
 
   .then(insertResult => {
     if (insertResult) {
