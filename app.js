@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 const app = express();
 
-mongoose.connect('mongodb+srv://vicstyl3:<password>@cluster0.kvxe1hb.mongodb.net/?retryWrites=true&w=majority/todolistDB', {
+mongoose.connect('mongodb+srv://vicstyl3:Figarooo.333@cluster0.kvxe1hb.mongodb.net/?retryWrites=true&w=majority/todolistDB', {
   useNewUrlParser: true
 })
 
