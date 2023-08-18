@@ -1,17 +1,24 @@
 //jshint esversion:6
+require('dotenv').config();
 import _ from 'lodash';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.listen("3000", (req,res) => {
-  console.log("Listening on port 3000");
-})
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI)
+    console.log('mongodb connected');
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
-mongoose.connect('mongodb+srv://vicstyl3:Figarooo.333@cluster0.kvxe1hb.mongodb.net/todolistDB', {
-  useNewUrlParser: true
-})
+mongoose.set('strictQuery', false);
+
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -89,9 +96,9 @@ Item.find().countDocuments()
     defaultItems = items;
   })
 
-  app.get("/favicon.ico", function (req, res) {
-    res.redirect("/");
-  });
+app.get("/favicon.ico", function (req, res) {
+  res.redirect("/");
+});
 
 
 app.get("/", function (req, res) {
@@ -102,6 +109,12 @@ app.get("/", function (req, res) {
   });
 
 });
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log('Listening on port');
+  })
+})
 
 app.post("/", function (req, res) {
 
@@ -149,10 +162,17 @@ app.post("/delete", (req, res) => {
   if (req.body.checkbox_custom) {
     const checkedItemId = req.body.checkbox_custom;
     console.log(checkedItemId);
-    List.updateOne(
-      { "items._id": checkedItemId }, // Replace with the actual list _id
-      { $pull: { items: { _id: checkedItemId } } }
-    )
+    List.updateOne({
+          "items._id": checkedItemId
+        }, // Replace with the actual list _id
+        {
+          $pull: {
+            items: {
+              _id: checkedItemId
+            }
+          }
+        }
+      )
       .then(result => {
         console.log(result);
       })
@@ -220,5 +240,3 @@ app.get("/:topic", (req, res) => {
 app.get("/about", function (req, res) {
   res.render("about");
 });
-
-
