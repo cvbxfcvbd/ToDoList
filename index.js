@@ -73,14 +73,24 @@ const List = mongoose.model('List', listSchema)
 //to learn more about promise visit : https://javascript.info/promise-basics
 //Or https://www.youtube.com/watch?v=novBIqZh4Bk
 
-Item.find().countDocuments()
+
+    
+  
+app.get("/favicon.ico", function async (req, res) {
+  res.redirect("/");
+});
+
+
+app.get("/", function async (req, res) {
+
+  Item.find().countDocuments()
   .then(result => {
     z = result;
     console.log("Number of documents: ", z);
     if (z === 0) {
-      return Item.insertMany(defaultItems); // Return the promise chain
+      return Item.insertMany(defaultItems)// Return the promise chain
     } else {
-      return Promise.resolve(); // No need to insert items, resolve the promise
+      return Promise.resolve() // No need to insert items, resolve the promise
     }
   })
   .then(insertResult => {
@@ -94,13 +104,6 @@ Item.find().countDocuments()
   .then(items => {
     defaultItems = items;
   })
-
-app.get("/favicon.ico", function async (req, res) {
-  res.redirect("/");
-});
-
-
-app.get("/", function async (req, res) {
 
   res.render("list.ejs", {
     listTitle: "Today",
