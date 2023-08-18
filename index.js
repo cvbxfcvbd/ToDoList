@@ -88,7 +88,7 @@ app.get("/", function async (req, res) {
     z = result;
     console.log("Number of documents: ", z);
     if (z === 0) {
-      return Item.insertMany(defaultItems)// Return the promise chain
+      return Item.insertMany([item1, item2, item3])// Return the promise chain
     } else {
       return Promise.resolve() // No need to insert items, resolve the promise
     }
