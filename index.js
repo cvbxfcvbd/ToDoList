@@ -103,13 +103,11 @@ app.get("/", function async (req, res) {
   })
   .then(items => {
     defaultItems = items;
+    res.render("list.ejs", {
+      listTitle: "Today",
+      defaultItems: defaultItems
+    });
   })
-
-  res.render("list.ejs", {
-    listTitle: "Today",
-    defaultItems: defaultItems
-  });
-
 });
 
 app.post("/", function async (req, res) {
@@ -124,9 +122,14 @@ app.post("/", function async (req, res) {
   if (listName === "Today") {
     defaultItems.push(item);
 
-    item.save();
-
-    res.redirect("/");
+    item.save()
+    .then(result => {
+      res.redirect("/");
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  
   } else {
     List.updateOne({
         name: listName
