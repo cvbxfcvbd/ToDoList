@@ -95,12 +95,12 @@ Item.find().countDocuments()
     defaultItems = items;
   })
 
-app.get("/favicon.ico", function (req, res) {
+app.get("/favicon.ico", function async (req, res) {
   res.redirect("/");
 });
 
 
-app.get("/", function (req, res) {
+app.get("/", function async (req, res) {
 
   res.render("list.ejs", {
     listTitle: "Today",
@@ -109,7 +109,7 @@ app.get("/", function (req, res) {
 
 });
 
-app.post("/", function (req, res) {
+app.post("/", function async (req, res) {
 
   const itemName = req.body.newItem;
   const listName = req.body.list;
@@ -151,7 +151,7 @@ app.post("/", function (req, res) {
 
 });
 
-app.post("/delete", (req, res) => {
+app.post("/delete", async (req, res) => {
   if (req.body.checkbox_custom) {
     const checkedItemId = req.body.checkbox_custom;
     console.log(checkedItemId);
@@ -200,7 +200,7 @@ app.post("/delete", (req, res) => {
 
 })
 
-app.get("/:topic", (req, res) => {
+app.get("/:topic", async (req, res) => {
   customListName = _.lowerCase(req.params.topic);;
 
   List.findOne({
