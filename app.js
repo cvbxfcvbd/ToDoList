@@ -5,6 +5,10 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 const app = express();
 
+app.listen("3000", (req,res) => {
+  console.log("Listening on port 3000");
+})
+
 mongoose.connect('mongodb+srv://vicstyl3:Figarooo.333@cluster0.kvxe1hb.mongodb.net/todolistDB', {
   useNewUrlParser: true
 })
@@ -63,8 +67,16 @@ const List = mongoose.model('List', listSchema)
 //to learn more about promise visit : https://javascript.info/promise-basics
 //Or https://www.youtube.com/watch?v=novBIqZh4Bk
 
-Item.insertMany(defaultItems) // Return the promise chain
-
+Item.find().countDocuments()
+  .then(result => {
+    z = result;
+    console.log("Number of documents: ", z);
+    if (z === 0) {
+      return Item.insertMany(defaultItems); // Return the promise chain
+    } else {
+      return Promise.resolve(); // No need to insert items, resolve the promise
+    }
+  })
   .then(insertResult => {
     if (insertResult) {
       console.log("Default items inserted:", insertResult);
@@ -209,6 +221,4 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen("3000", (req,res) => {
-  console.log("Listening on port 3000");
-})
+
