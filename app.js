@@ -85,6 +85,10 @@ Item.find().countDocuments()
     defaultItems = items;
   })
 
+  app.get("/favicon.ico", function (req, res) {
+    res.redirect("/");
+  });
+
 
 app.get("/", function (req, res) {
 
